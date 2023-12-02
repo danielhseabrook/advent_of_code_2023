@@ -54,7 +54,4 @@ for v in calibration_values_raw:
         value = v
     calibration_values.append(int(value))
 
-    with open ("result_test.txt", "a") as file:
-        file.write(f'{value}\n')
-
 print(sum(calibration_values))
