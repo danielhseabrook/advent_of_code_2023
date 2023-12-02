@@ -20,23 +20,30 @@ calibration_values = []
 for line in data:
     char_number = ""
     split_line = re.findall('(\d+|[A-Za-z]+)', line)
-    # print(split_line)
 
     for segment in split_line:
+        seg_dict = {}
+        sorted_seg_dict = {}
+
         for key in letter_numbers:
-            if key in segment:
-                char_number += str(letter_numbers.get(key))
-        for number in segment:
-            if number in letter_numbers.values():
-                char_number += number
+            indexes = [i.start() for i in re.finditer(key, segment)]
 
-    with open ("calibration_values_raw.txt", "a") as file:
-        file.write(f'{char_number}\n')
-    calibration_values_raw.append(char_number)
+            for _ in indexes:
+                seg_dict[_] = letter_numbers[key]
 
-    # for char in line:
-        # if segmentiter in numbers:
-        # char_number += str(char)
+        for value in letter_numbers.values():
+            indexes = [i.start() for i in re.finditer(value, segment)]
+
+            for _ in indexes:
+                seg_dict[_] = value
+
+        sorted_seg_dict = dict(sorted(seg_dict.items()))
+
+        for value in sorted_seg_dict.values():
+            char_number += value
+
+    if char_number not in '':
+        calibration_values_raw.append(char_number)
 
 for v in calibration_values_raw:
     if len(v) > 2:
