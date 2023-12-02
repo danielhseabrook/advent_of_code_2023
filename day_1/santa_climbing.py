@@ -1,4 +1,6 @@
 import re
+calibration_values_raw = []
+calibration_values = []
 letter_numbers = {
     "one" : "1",
     "two" : "2",
@@ -12,9 +14,6 @@ letter_numbers = {
 }
 with open ("puzzle_input.txt", "r") as file:
     data = file.readlines()
-
-calibration_values_raw = []
-calibration_values = []
 
 for line in data:
     char_number = ""
